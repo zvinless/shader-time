@@ -7,7 +7,7 @@
 class Texture
 {
 public:
-    Texture(std::string_view path);
+    Texture(const std::string& path);
     ~Texture() { glDeleteTextures(1, &tex); }
     const int& x = _x;
     const int& y = _y;

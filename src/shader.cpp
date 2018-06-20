@@ -4,12 +4,12 @@
 #include <fstream>
 using namespace std;
 
-void Shader::vert(string_view path)
+void Shader::vert(const string& path)
 {
     attach(GL_VERTEX_SHADER, path.data());
 }
 
-void Shader::frag(string_view path)
+void Shader::frag(const string& path)
 {
     attach(GL_FRAGMENT_SHADER, path.data());
 }
@@ -27,7 +27,7 @@ void Shader::link()
     }
 }
 
-void Shader::attach(GLenum shaderType, string_view path)
+void Shader::attach(GLenum shaderType, const string& path)
 {
     auto file = ifstream(path.data());
     auto source = string(istreambuf_iterator<char>(file), {});

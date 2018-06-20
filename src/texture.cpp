@@ -1,7 +1,7 @@
 #include <texture.hpp>
 using namespace std;
 
-Texture::Texture(string_view path)
+Texture::Texture(const string& path)
 {
     auto data = stbi_load(path.data(), &_x, &_y, &_n, 4);
     glGenTextures(1, &tex);
