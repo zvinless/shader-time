@@ -61,9 +61,14 @@ void Mesh::setShader(shared_ptr<Shader> shader)
     glBindVertexArray(0);
 }
 
+void Mesh::setMaterial(shared_ptr<Material> material)
+{
+    this->material = material;
+}
+
 void Mesh::draw()
 {
-    shader->use();
+    material->drawTime();
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indices.size() * 3, GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);

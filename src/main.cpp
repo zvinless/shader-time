@@ -4,6 +4,7 @@
 #include <shader.hpp>
 #include <mesh.hpp>
 #include <texture.hpp>
+#include <material.hpp>
 #include <iostream>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -17,8 +18,8 @@ int main()
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)> window(
         glfwCreateWindow(kWidth, kHeight, "สวัสดีชาวโลก", nullptr, nullptr),
@@ -41,6 +42,9 @@ int main()
 
     auto texture = make_shared<Texture>("assets/textures/e.png");
 
+    auto material = make_shared<Material>(shader);
+    material->setTexture("tex", *texture.get());
+
     vector<Vertex> vertices {
         { { -1, -1 }, { 0, 0 } },
         { { -1, +1 }, { 0, 1 } },
@@ -55,6 +59,7 @@ int main()
 
     Mesh mesh(move(vertices), move(indices));
     mesh.setShader(shader);
+    mesh.setMaterial(material);
 
     while (!glfwWindowShouldClose(window.get()))
     {

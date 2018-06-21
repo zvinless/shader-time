@@ -1,10 +1,13 @@
 #include <texture.hpp>
 using namespace std;
 
+int Texture::counter;
+
 Texture::Texture(const string& path)
 {
     auto data = stbi_load(path.data(), &_x, &_y, &_n, 4);
-    glGenTextures(1, &tex);
+    glGenTextures(1, &_tex);
+    glActiveTexture(GL_TEXTURE0 + counter);
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexImage2D(
         GL_TEXTURE_2D,
@@ -22,4 +25,6 @@ Texture::Texture(const string& path)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     stbi_image_free(data);
+    _unit = counter;
+    ++counter;
 }
