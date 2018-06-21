@@ -41,9 +41,11 @@ int main()
     shader->link();
 
     auto texture = make_shared<Texture>("assets/textures/e.png");
+    auto gradient = make_shared<Texture>("assets/textures/gradient.png");
 
     auto material = make_shared<Material>(shader);
     material->setTexture("tex", *texture.get());
+    material->setTexture("gradient", *gradient.get());
 
     vector<Vertex> vertices {
         { { -1, -1 }, { 0, 0 } },
